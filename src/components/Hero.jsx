@@ -1,6 +1,8 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import PhysicsBackground from './PhysicsBackground';
+import AeroFlow from './AeroFlow';
+import Portrait from './Portrait';
 
 export default function Hero() {
     const containerRef = useRef(null);
@@ -15,6 +17,7 @@ export default function Hero() {
     return (
         <section ref={containerRef} style={{ height: '100vh', position: 'relative', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
             <PhysicsBackground />
+            <AeroFlow />
 
             <motion.div
                 style={{ y, opacity, zIndex: 1 }}
@@ -59,7 +62,7 @@ export default function Hero() {
                                 letterSpacing: '-0.02em'
                             }}
                         >
-                            "Stay Hungry"
+                            "Stay Hungry, Stay Foolish"
                         </motion.div>
 
                         <h1 style={{ fontSize: '10vw', lineHeight: 0.85, fontWeight: 600, letterSpacing: '-0.04em' }}>
@@ -77,6 +80,26 @@ export default function Hero() {
                     <div style={{ width: '60px', height: '60px', borderRadius: '50%', border: '1px solid var(--color-text)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         ↓
                     </div>
+                </div>
+            </motion.div>
+
+            {/* Right Side: Portrait */}
+            <motion.div
+                style={{
+                    position: 'absolute',
+                    right: '-5%', // Pull slightly off-screen for that "cut-off" look
+                    bottom: 0,
+                    width: '55vw', // Much larger
+                    height: '85vh', // High enough
+                    zIndex: 0, // Behind text interaction but visible
+                    display: 'flex',
+                    alignItems: 'flex-end',
+                    justifyContent: 'flex-end', // Align image to right
+                    pointerEvents: 'none'
+                }}
+            >
+                <div style={{ pointerEvents: 'auto', width: '100%', height: '100%' }}>
+                    <Portrait />
                 </div>
             </motion.div>
         </section>
