@@ -3,8 +3,9 @@ import { Link } from 'wouter';
 import Hero from '../components/Hero';
 import Mascot from '../components/Mascot';
 import CardStack from '../components/CardStack';
+import Skills from '../components/Skills';
 import Experience from '../components/Experience';
-import Testimonials from '../components/Testimonials';
+import Achievements from '../components/Achievements';
 import Footer from '../components/Footer';
 import AIMascot from '../components/AIMascot';
 
@@ -75,8 +76,9 @@ export default function Home() {
                 </div>
             </section>
 
+            <Skills />
             <Experience />
-            <Testimonials />
+            <Achievements />
             <Footer />
         </div>
     );

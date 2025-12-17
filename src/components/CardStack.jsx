@@ -45,9 +45,9 @@ const Card = ({ i, title, body, color }) => {
 
 export default function CardStack() {
     const cards = [
-        { title: "Engineering", body: "Building robust, scalable foundations using modern architectures. From microservices to monolithic masterpieces, code quality is paramount.", color: "#FAFAFA" },
-        { title: "Artificial Intelligence", body: "Integrating LLMs and generative models to create smarter interfaces. Moving beyond chatbots to true agentic workflows.", color: "#F0F0F0" },
-        { title: "Design Systems", body: "Crafting fluid, intuitive UI/UX that feels alive. Where physics meets pixel-perfect precision.", color: "#E5E5E5" }
+        { title: "Agentic AI & RAG", body: "Building autonomous agents and RAG pipelines using LangChain, LangGraph, and Vector Databases. Expertise in LLM integration (Gemini, OpenAI) and prompt engineering.", color: "#FAFAFA" },
+        { title: "Full-Stack & Mobile", body: "End-to-end development with React, Next.js, and Android (Kotlin/Flutter). From high-fidelity Figma wireframes to production-ready scalable backends.", color: "#F0F0F0" },
+        { title: "Automation Systems", body: "Designing intelligent workflows with n8n and Python scripts. Implementing 'Kaizen' philosophy for continuous improvement in software quality and efficiency.", color: "#E5E5E5" }
     ];
 
     return (

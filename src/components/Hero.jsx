@@ -20,14 +20,59 @@ export default function Hero() {
                 style={{ y, opacity, zIndex: 1 }}
                 className="container"
             >
-                <h1 style={{ fontSize: '12vw', lineHeight: 0.85, fontWeight: 600, letterSpacing: '-0.04em' }}>
-                    Code <br />
-                    <span style={{ color: 'transparent', WebkitTextStroke: '2px var(--color-text)' }}>&</span> Context
-                </h1>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', position: 'relative' }}>
+
+                    {/* The "27" - Connected to Loader via LayoutId */}
+                    <motion.div
+                        layoutId="hero-number-27"
+                        transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1.0] }} // Smoother bezier
+                        style={{
+                            fontSize: '18vw', // Slightly larger for impact
+                            fontFamily: '"Space Grotesk", sans-serif',
+                            fontStyle: 'italic',
+                            fontWeight: 800,
+                            lineHeight: 0.8,
+                            background: 'linear-gradient(to right, #666 0%, #ccc 50%, #666 100%)', // Darker "Gunmetal" Silver
+                            backgroundSize: '200% auto', // Enable flow
+                            animation: 'shine 3s linear infinite', // Continuous flow
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            filter: 'drop-shadow(0 0 15px rgba(0,0,0,0.1))' // Stronger shadow
+                        }}
+                    >
+                        27
+                    </motion.div>
+
+                    {/* Container for Quote + Name */}
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        {/* Quote - Larger */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 1.0, duration: 0.8 }}
+                            style={{
+                                fontSize: '2rem', // Larger
+                                fontStyle: 'italic',
+                                color: 'var(--color-text-light)',
+                                fontFamily: '"Space Grotesk", sans-serif',
+                                marginBottom: '0.5rem',
+                                letterSpacing: '-0.02em'
+                            }}
+                        >
+                            "Stay Hungry"
+                        </motion.div>
+
+                        <h1 style={{ fontSize: '10vw', lineHeight: 0.85, fontWeight: 600, letterSpacing: '-0.04em' }}>
+                            Amaan <br />
+                            <span style={{ color: 'transparent', WebkitTextStroke: '2px var(--color-text)' }}>Syed</span>
+                        </h1>
+                    </div>
+                </div>
 
                 <div style={{ marginTop: '4rem', display: 'flex', gap: '2rem', alignItems: 'center' }}>
-                    <p style={{ fontSize: '1.25rem', maxWidth: '32ch', fontWeight: 500 }}>
-                        Full-stack Software Developer & AI Engineer specializing in modern web implementations.
+                    <p style={{ fontSize: '1.25rem', maxWidth: '40ch', fontWeight: 500 }}>
+                        AI Engineer | LLM Pipelines & Automation Systems. <br />
+                        Ex-VideoDB Intern. 2x Hackathon Winner.
                     </p>
                     <div style={{ width: '60px', height: '60px', borderRadius: '50%', border: '1px solid var(--color-text)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         ↓

@@ -45,9 +45,9 @@ export default function Experience() {
     const pathLength = useTransform(scrollYProgress, [0.1, 0.8], [0, 1]);
 
     const jobs = [
-        { date: "2024 - Present", title: "Senior AI Engineer", company: "TechNova Labs", description: "Leading the generative AI division. Implementing agentic workflows and LLM-based interfaces for enterprise clients.", align: "left" },
-        { date: "2022 - 2024", title: "Full Stack Developer", company: "Creative Solutions", description: "Built scalable web applications using React, Node.js, and AWS. Focused on interactive frontend experiences.", align: "right" },
-        { date: "2020 - 2022", title: "Frontend Engineer", company: "StartUp Inc", description: "Developed the core design system and component library. Improved site performance by 40%.", align: "left" }
+        { date: "Sep 2025 - Dec 2025", title: "Software Engineer Intern", company: "VideoDB (San Francisco)", description: "Architected advanced agentic AI systems to automate video analysis workflows. Reduced manual analysis time by 65%.", align: "left" },
+        { date: "Nov 2024 - Oct 2025", title: "Android Developer & AI Lead", company: "The Android Club", description: "Mentored 20+ students on AI concepts. Led AI initiatives and tool integration for multiple hackathons.", align: "right" },
+        { date: "Nov 2024 - Oct 2025", title: "Wireframe Designer", company: "MakeMyCards.com", description: "Designed 15+ wireframes in Figma, improving design hand-off efficiency by 35%. Optimized workflows to reduce expenses.", align: "left" }
     ];
 
     return (
