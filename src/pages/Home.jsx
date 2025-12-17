@@ -40,7 +40,7 @@ const EntryCard = ({ title, desc, color, children, href }) => (
 
 export default function Home() {
     return (
-        <div style={{ paddingBottom: '120px' }}>
+        <div>
             <Mascot />
             <Hero />
             <CardStack />
