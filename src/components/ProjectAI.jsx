@@ -9,6 +9,9 @@ import automationIcon from '../assets/ai-and-agents/automation.png';
 import jediSymbol from '../assets/ai-and-agents/jedi-symbol.svg';
 import multiAgentIcon from '../assets/ai-and-agents/multi-agent-system.png';
 import pythonIcon from '../assets/ai-and-agents/python.png';
+import edenticLogo from '../assets/ai-and-agents/edentic/edentic-logo.png';
+import klipifyLogo from '../assets/ai-and-agents/klipify/klipify-logo.png';
+import sentinelLogo from '../assets/ai-and-agents/sentinel-logo/sentinel-logo.png';
 
 const FALLING_ICONS = [aiIcon, automationIcon, multiAgentIcon, pythonIcon];
 
@@ -101,79 +104,82 @@ const AI_PROJECTS = [
     {
         id: 'freshlogic',
         title: 'FreshLogic',
-        icon: <Cpu size={28} />,
-        color: '#FF0055',
-        glowColor: 'rgba(255, 0, 85, 0.5)',
+        icon: <span style={{ fontSize: '40px', lineHeight: 1 }}>🌾</span>,
+        color: '#43a047',
+        glowColor: 'rgba(67, 160, 71, 0.5)',
         logs: [
-            "> FreshLogic Core Online...",
-            "> Optimizing Neural Pathways...",
-            "> [UPDATE] Logic Gate #42 Expanding",
-            "> Ready for complex reasoning."
+            "> Telemetry Service: ONLINE",
+            "> Connecting 13+ Google Cloud APIs...",
+            "> Proprietary Regressor: ACTIVE",
+            "> Spoilage Risk Analysis: STARTED"
         ]
     },
     {
         id: 'scorpion',
         title: 'Scorpion-CLI',
-        icon: <Terminal size={28} />,
-        color: '#00FF88',
-        glowColor: 'rgba(0, 255, 136, 0.5)',
+        icon: <span style={{ fontSize: '40px', lineHeight: 1 }}>🦂</span>,
+        color: '#ffae00',
+        glowColor: 'rgba(255, 174, 0, 0.5)',
         logs: [
             "> Scorpion Agent Initialized...",
-            "> Mode: Autonomous Shell",
-            "> Executing system scan...",
-            "> [SUCCESS] 3 Ports Secured."
+            "> Core: qwen3:8b [LOCAL]",
+            "> Mode: Smart Research [ACTIVE]",
+            "> Web: Connected (Ollama)",
+            "> Analyzing System Performance..."
         ]
     },
     {
         id: 'edentic',
         title: 'Edentic',
-        icon: <Fingerprint size={28} />,
+        icon: <img src={edenticLogo} alt="Edentic" style={{ width: '42px', height: 'auto' }} />,
         color: '#00ccff',
         glowColor: 'rgba(0, 204, 255, 0.5)',
         logs: [
-            "> Verifying Identity Protocols...",
-            "> Biometric Hash: MATCH",
-            "> [AUTH] Granted. Welcome back.",
-            "> Session Secure."
+            "> Edentic Studio Initializing...",
+            "> VideoDB Engine: ONLINE",
+            "> AI Vision: Gemini 2.5 Flash",
+            "> Audio Synthesis: Active",
+            "> Ready for Multimedia Creation."
         ]
     },
     {
         id: 'klipify',
         title: 'Klipify',
-        icon: <Layers size={28} />,
+        icon: <img src={klipifyLogo} alt="Klipify" style={{ width: '42px', height: 'auto' }} />,
         color: '#bd93f9',
         glowColor: 'rgba(189, 147, 249, 0.5)',
         logs: [
-            "> Loading U2-Net Model...",
-            "> Input: High-Res Image",
-            "> Creating Alpha Matte...",
-            "> [DONE] Background Removed."
+            "> Klipify Edu-Engine Active...",
+            "> Analyzing Educational Content...",
+            "> Summarization: Active",
+            "> Quiz Generation: Ready"
         ]
     },
     {
         id: 'foresight',
         title: 'Foresight',
-        icon: <Eye size={28} />,
+        icon: <Eye size={42} />,
         color: '#ffbd2e',
         glowColor: 'rgba(255, 189, 46, 0.5)',
         logs: [
-            "> Predictive Engine Start...",
-            "> Analyzing Market Trends...",
-            "> [ALERT] Pattern Detected.",
-            "> Confidence Interval: 94%"
+            "> Strategy Engine Init...",
+            "> Connecting Finnhub API...",
+            "> Loading Indian Penal Code...",
+            "> Simulation Mode: READY"
         ]
     },
     {
         id: 'sentinel',
         title: 'Sentinel',
-        icon: <Shield size={28} />,
+        icon: <img src={sentinelLogo} alt="Sentinel" style={{ width: '42px', height: 'auto' }} />,
         color: '#ff5f56',
         glowColor: 'rgba(255, 95, 86, 0.5)',
         logs: [
-            "> Sentinel Watchdog Active...",
-            "> Monitoring Network Traffic...",
-            "> Threat Blocked: IP 192.168.x.x",
-            "> [SECURE] System Integrity: 100%"
+            "> Sentinel Core: ONLINE",
+            "> AI Engine: LLaMA 3 (Groq)",
+            "> Analyzing DOM Elements...",
+            "> Screenpipe Stream: SECURE",
+            "> System Integrity: Verified"
         ]
     }
 ];
@@ -235,114 +241,108 @@ const LightsaberLine = ({ startX, startY, endX, endY, color, isActive, delay = 0
 };
 
 // --- PROJECT NODE COMPONENT (Larger, More Dramatic) ---
-const ProjectNode = ({ project, isActive, onHover, position, delay = 0 }) => (
-    <motion.div
-        style={{
-            position: 'absolute',
-            ...position,
-            cursor: 'pointer',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '12px',
-            zIndex: 10
-        }}
-        initial={{ scale: 0, opacity: 0, y: 50 }}
-        animate={{ scale: 1, opacity: 1, y: 0 }}
-        transition={{ type: 'spring', delay, damping: 12 }}
-        onMouseEnter={() => onHover(project)}
-        onMouseLeave={() => onHover(null)}
-    >
-        {/* Outer Ring - Pulsing when active */}
+const ProjectNode = ({ project, isActive, onHover, position, delay = 0, onClick }) => {
+    return (
         <motion.div
+            onClick={onClick}
             style={{
-                position: 'relative',
-                width: '90px',
-                height: '90px',
-                borderRadius: '50%',
+                position: 'absolute',
+                ...position,
+                cursor: 'pointer',
                 display: 'flex',
+                flexDirection: 'column',
                 alignItems: 'center',
-                justifyContent: 'center'
+                gap: '12px',
+                zIndex: 10
             }}
+            initial={{ scale: 0, opacity: 0, y: 50 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            transition={{ type: 'spring', delay, damping: 12 }}
+            onMouseEnter={() => onHover(project)}
+            onMouseLeave={() => onHover(null)}
         >
-            {/* Outer glow ring */}
+            {/* --- Empire/Cog Style Node --- */}
             <motion.div
                 style={{
-                    position: 'absolute',
-                    inset: '-8px',
-                    borderRadius: '50%',
-                    border: `2px solid ${project.color}`,
-                    opacity: isActive ? 0.8 : 0.2
-                }}
-                animate={isActive ? {
-                    scale: [1, 1.15, 1],
-                    opacity: [0.8, 0.4, 0.8]
-                } : {}}
-                transition={{ duration: 2, repeat: Infinity }}
-            />
-
-            {/* Main icon container */}
-            <motion.div
-                animate={{
-                    scale: isActive ? 1.1 : 1,
-                    boxShadow: isActive
-                        ? `0 0 40px ${project.glowColor}, 0 0 80px ${project.glowColor}, inset 0 0 20px ${project.glowColor}`
-                        : `0 0 15px rgba(0,0,0,0.2)`,
-                    borderColor: isActive ? project.color : 'rgba(50,50,50,0.5)'
-                }}
-                transition={{ type: 'spring', stiffness: 300 }}
-                style={{
-                    width: '75px',
-                    height: '75px',
-                    borderRadius: '50%',
-                    background: isActive
-                        ? `radial-gradient(circle at 30% 30%, #1a1a1a, #0a0a0a)`
-                        : '#0a0a0a',
-                    border: '3px solid rgba(50,50,50,0.5)',
+                    position: 'relative',
+                    width: 'clamp(100px, 9vw, 130px)',
+                    height: 'clamp(100px, 9vw, 130px)',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center',
-                    color: project.color,
-                    position: 'relative',
-                    overflow: 'hidden'
+                    justifyContent: 'center'
                 }}
             >
-                {/* Scanning line effect */}
-                {isActive && (
+                {/* 1. Outer Cog Ring (Rotating) */}
+                <motion.div
+                    animate={{ rotate: isActive ? 360 : 0 }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                    style={{
+                        position: 'absolute',
+                        inset: 0,
+                        borderRadius: '50%',
+                        border: `4px dashed ${isActive ? project.color : '#ccc'}`, // Dashed border mimics cog teeth
+                        opacity: isActive ? 1 : 0.5,
+                        boxShadow: isActive ? `0 0 20px ${project.glowColor}` : 'none'
+                    }}
+                />
+
+                {/* 2. Inner Ring (Static or Counter-Rotate) */}
+                <motion.div
+                    style={{
+                        position: 'absolute',
+                        inset: '6px',
+                        borderRadius: '50%',
+                        border: `2px solid ${isActive ? project.color : '#e0e0e0'}`,
+                        background: '#fff', // White background so logos pop
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        overflow: 'hidden',
+                        boxShadow: isActive ? `inset 0 0 15px ${project.glowColor}40` : '0 4px 10px rgba(0,0,0,0.05)'
+                    }}
+                >
+                    {/* Inner decorative "Empire" spokes */}
+                    <div style={{
+                        position: 'absolute', inset: 0,
+                        background: `radial-gradient(circle at center, transparent 60%, ${isActive ? project.color + '10' : '#f0f0f0'} 61%, transparent 62%)`, // Subtle ring
+                        pointerEvents: 'none'
+                    }} />
+
+                    {/* The Icon */}
                     <motion.div
+                        animate={{ scale: isActive ? 1.1 : 1 }}
+                        transition={{ type: "spring", stiffness: 300 }}
                         style={{
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            width: '100%',
-                            height: '4px',
-                            background: `linear-gradient(90deg, transparent, ${project.color}, transparent)`,
-                            filter: 'blur(1px)'
+                            position: 'relative',
+                            zIndex: 2,
+                            color: project.color,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
                         }}
-                        animate={{ top: ['0%', '100%', '0%'] }}
-                        transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
-                    />
-                )}
-                {project.icon}
+                    >
+                        {project.icon}
+                    </motion.div>
+                </motion.div>
+            </motion.div>
+
+            {/* Title with glow */}
+            <motion.div
+                style={{
+                    textAlign: 'center',
+                    color: isActive ? project.color : '#444',
+                    fontSize: '0.9rem',
+                    fontWeight: 700,
+                    letterSpacing: '0.5px',
+                    textShadow: isActive ? `0 0 10px ${project.glowColor}` : 'none'
+                }}
+                animate={{ opacity: isActive ? 1 : 0.7 }}
+            >
+                {project.title}
             </motion.div>
         </motion.div>
-
-        {/* Title with glow */}
-        <motion.div
-            style={{
-                textAlign: 'center',
-                color: isActive ? project.color : '#444',
-                fontSize: '0.9rem',
-                fontWeight: 700,
-                letterSpacing: '0.5px',
-                textShadow: isActive ? `0 0 10px ${project.glowColor}` : 'none'
-            }}
-            animate={{ opacity: isActive ? 1 : 0.7 }}
-        >
-            {project.title}
-        </motion.div>
-    </motion.div>
-);
+    );
+};
 
 // --- TERMINAL LOG COMPONENT ---
 const TerminalLog = ({ activeProject }) => {
@@ -370,9 +370,10 @@ const TerminalLog = ({ activeProject }) => {
     return (
         <div style={{
             fontFamily: '"SF Mono", "Monaco", "Inconsolata", monospace',
-            fontSize: '1rem',
-            lineHeight: 1.8,
-            color: activeProject ? activeProject.color : '#00FF88'
+            fontSize: 'clamp(0.8rem, 1.2vw, 1rem)', // Dynamic sizing as requested
+            lineHeight: 1.6,
+            color: activeProject ? activeProject.color : '#00FF88',
+            overflow: 'hidden'
         }}>
             {lines.map((line, i) => (
                 <motion.div
@@ -407,10 +408,12 @@ const BlastDoorTerminal = ({ activeProject }) => {
         <div
             style={{
                 position: 'relative',
-                width: '550px',
-                height: '220px',
+                width: 'min(500px, 90vw)',
+                aspectRatio: '4/3', // Specific user request
+                maxHeight: '300px', // Cap height so it doesn't get too massive
                 borderRadius: '16px',
-                zIndex: 20
+                zIndex: 20,
+                marginTop: '1rem'
             }}
         >
             {/* Terminal Frame */}
@@ -420,7 +423,7 @@ const BlastDoorTerminal = ({ activeProject }) => {
                 background: '#0a0a0a',
                 border: '2px solid #333',
                 borderRadius: '16px',
-                padding: '1.5rem 2rem',
+                padding: '1.5rem',
                 boxShadow: '0 25px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)',
                 overflow: 'hidden',
                 display: 'flex',
@@ -460,40 +463,46 @@ const BlastDoorTerminal = ({ activeProject }) => {
                     gap: '10px',
                     marginBottom: '1rem',
                     borderBottom: '1px solid rgba(255,255,255,0.1)',
-                    paddingBottom: '0.75rem'
+                    paddingBottom: '0.75rem',
+                    flexShrink: 0
                 }}>
                     <motion.div
-                        style={{ width: '14px', height: '14px', borderRadius: '50%', background: '#ff5f56' }}
+                        style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ff5f56' }}
                         animate={{ boxShadow: ['0 0 5px #ff5f56', '0 0 15px #ff5f56', '0 0 5px #ff5f56'] }}
                         transition={{ duration: 2, repeat: Infinity }}
                     />
                     <motion.div
-                        style={{ width: '14px', height: '14px', borderRadius: '50%', background: '#ffbd2e' }}
+                        style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ffbd2e' }}
                         animate={{ boxShadow: ['0 0 5px #ffbd2e', '0 0 15px #ffbd2e', '0 0 5px #ffbd2e'] }}
                         transition={{ duration: 2, repeat: Infinity, delay: 0.3 }}
                     />
                     <motion.div
-                        style={{ width: '14px', height: '14px', borderRadius: '50%', background: '#27c93f' }}
+                        style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#27c93f' }}
                         animate={{ boxShadow: ['0 0 5px #27c93f', '0 0 15px #27c93f', '0 0 5px #27c93f'] }}
                         transition={{ duration: 2, repeat: Infinity, delay: 0.6 }}
                     />
                     <motion.span
                         style={{
                             marginLeft: 'auto',
-                            fontSize: '0.75rem',
+                            fontSize: '0.7rem',
                             color: activeProject ? activeProject.color : '#00FF88',
                             fontFamily: 'monospace',
-                            letterSpacing: '2px'
+                            letterSpacing: '2px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis'
                         }}
                         animate={{ opacity: [0.7, 1, 0.7] }}
                         transition={{ duration: 1.5, repeat: Infinity }}
                     >
-                        {activeProject ? '◉ ANALYZING_METRICS' : '◉ SYSTEM_IDLE'}
+                        {activeProject ? '◉ METRICS' : '◉ IDLE'}
                     </motion.span>
                 </div>
 
                 {/* Terminal Content */}
-                <TerminalLog activeProject={activeProject} />
+                <div style={{ flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+                    <TerminalLog activeProject={activeProject} />
+                </div>
             </div>
         </div>
     );
@@ -717,7 +726,7 @@ const BlastDoorTransition = () => {
     );
 };
 
-export default function ProjectAI() {
+export default function ProjectAI({ onSelect }) {
     const [activeProject, setActiveProject] = useState(null);
     const [isMobile, setIsMobile] = useState(false);
 
@@ -827,6 +836,7 @@ export default function ProjectAI() {
                             }}
                             onTouchStart={() => setActiveProject(project)}
                             onTouchEnd={() => setActiveProject(null)}
+                            onClick={() => (project.id === 'scorpion' || project.id === 'edentic' || project.id === 'klipify' || project.id === 'foresight' || project.id === 'freshlogic' || project.id === 'sentinel') && onSelect && onSelect(project.id)}
                         >
                             <motion.div
                                 animate={{
@@ -836,15 +846,16 @@ export default function ProjectAI() {
                                         : '0 0 10px rgba(0,0,0,0.1)'
                                 }}
                                 style={{
-                                    width: '60px',
-                                    height: '60px',
+                                    width: 'clamp(65px, 18vw, 85px)',
+                                    height: 'clamp(65px, 18vw, 85px)',
                                     borderRadius: '50%',
-                                    background: '#0a0a0a',
-                                    border: `2px solid ${activeProject?.id === project.id ? project.color : '#333'}`,
+                                    background: '#fff',
+                                    border: `2px dashed ${activeProject?.id === project.id ? project.color : '#ccc'}`,
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
-                                    color: project.color
+                                    color: project.color,
+                                    boxShadow: activeProject?.id === project.id ? `0 0 15px ${project.glowColor}` : '0 2px 8px rgba(0,0,0,0.1)'
                                 }}
                             >
                                 {project.icon}
@@ -942,6 +953,7 @@ export default function ProjectAI() {
                         onHover={setActiveProject}
                         position={nodePositions.left[i]}
                         delay={0.2 + i * 0.15}
+                        onClick={() => (project.id === 'scorpion' || project.id === 'edentic' || project.id === 'klipify' || project.id === 'foresight' || project.id === 'freshlogic' || project.id === 'sentinel') && onSelect && onSelect(project.id)}
                     />
                 ))}
 
@@ -954,6 +966,7 @@ export default function ProjectAI() {
                         onHover={setActiveProject}
                         position={nodePositions.right[i]}
                         delay={0.5 + i * 0.15}
+                        onClick={() => (project.id === 'scorpion' || project.id === 'edentic' || project.id === 'klipify' || project.id === 'foresight' || project.id === 'freshlogic' || project.id === 'sentinel') && onSelect && onSelect(project.id)}
                     />
                 ))}
 

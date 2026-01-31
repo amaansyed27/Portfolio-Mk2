@@ -75,7 +75,7 @@ export default function Hero() {
                 <div style={{ marginTop: '4rem', display: 'flex', gap: '2rem', alignItems: 'center' }}>
                     <p style={{ fontSize: '1.25rem', maxWidth: '40ch', fontWeight: 500 }}>
                         AI Engineer | LLM Pipelines & Automation Systems. <br />
-                        Ex-VideoDB Intern. 2x Hackathon Winner.
+                        Ex-VideoDB Intern. 3x Hackathon Winner.
                     </p>
                     <div style={{ width: '60px', height: '60px', borderRadius: '50%', border: '1px solid var(--color-text)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         ↓
