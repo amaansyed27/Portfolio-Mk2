@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useLayoutEffect } from 'react';
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion';
 import { X, Github, ExternalLink, Zap, Code, FileCode, GitBranch, Terminal, Shield, Eye, Cpu, Layout } from 'lucide-react';
 
@@ -25,9 +25,22 @@ export default function CodeGuardianDetails({ onClose }) {
     const scrollRef = useRef(null);
     const [selectedImage, setSelectedImage] = useState(null);
 
+    // Force Scroll to Top on Mount (Nuclear Option)
+    useLayoutEffect(() => {
+        const resetScroll = () => {
+            if (scrollRef.current) {
+                scrollRef.current.scrollTop = 0;
+            }
+            window.scrollTo(0, 0); // Reset global scroll
+        };
+
+        resetScroll();
+        [10, 50, 100, 300].forEach(delay => setTimeout(resetScroll, delay));
+    }, []);
+
     return (
         <motion.div
-            layoutId="codeguardian-card-container" // Unique Layout ID
+            // layoutId="codeguardian-card-container" // Disabled for mobile stability
             data-lenis-prevent
             ref={scrollRef}
             style={{
@@ -37,39 +50,78 @@ export default function CodeGuardianDetails({ onClose }) {
                 right: 0,
                 bottom: 0,
                 background: '#FAFAFA',
-                zIndex: 9999,
+                zIndex: 99999,
                 overflowY: 'scroll',
                 WebkitOverflowScrolling: 'touch',
                 display: 'flex',
                 flexDirection: 'column'
             }}
         >
-            {/* Close Button - Fixed */}
-            <button
-                onClick={onClose}
-                style={{
+            {/* MOBILE HEADER BAR (Glassmorphism) */}
+            {isMobile && (
+                <div style={{
                     position: 'fixed',
-                    top: '2rem',
-                    right: '2rem',
-                    background: '#fff',
-                    border: '1px solid #e5e5e5',
-                    borderRadius: '50%',
-                    width: '48px',
-                    height: '48px',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: '70px',
+                    background: 'rgba(255,255,255,0.98)',
+                    backdropFilter: 'blur(20px)',
+                    zIndex: 100000,
+                    borderBottom: '1px solid rgba(0,0,0,0.08)',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center',
-                    cursor: 'pointer',
-                    color: '#000',
-                    zIndex: 100,
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-                    transition: 'transform 0.2s',
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
-                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-            >
-                <X size={24} />
-            </button>
+                    justifyContent: 'flex-end',
+                    padding: '0 1.5rem'
+                }}>
+                    <button
+                        onClick={onClose}
+                        style={{
+                            background: '#F3F4F6',
+                            border: '1px solid #E5E7EB',
+                            borderRadius: '50%',
+                            width: '40px',
+                            height: '40px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            color: '#111'
+                        }}
+                    >
+                        <X size={22} />
+                    </button>
+                </div>
+            )}
+
+            {/* DESKTOP CLOSE BUTTON (Floating) */}
+            {!isMobile && (
+                <button
+                    onClick={onClose}
+                    style={{
+                        position: 'fixed',
+                        top: '2rem',
+                        right: '2rem',
+                        background: '#fff',
+                        border: '1px solid #e5e5e5',
+                        borderRadius: '50%',
+                        width: '48px',
+                        height: '48px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        cursor: 'pointer',
+                        color: '#000',
+                        zIndex: 100,
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+                        transition: 'transform 0.2s',
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+                    onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                >
+                    <X size={24} />
+                </button>
+            )}
 
             {/* HERO SECTION */}
             <div style={{
@@ -77,78 +129,112 @@ export default function CodeGuardianDetails({ onClose }) {
                 display: 'flex',
                 alignItems: 'center',
                 position: 'relative',
-                overflow: 'hidden',
-                paddingTop: isMobile ? '6rem' : 0,
+                overflow: 'visible',
+                paddingTop: isMobile ? '120px' : 0, // Huge padding
                 paddingBottom: isMobile ? '4rem' : 0,
                 // Cyan/Slate Gradient for CodeGuardian identity
                 background: 'radial-gradient(circle at 60% 50%, #fff 0%, #f0fdff 100%)'
             }}>
                 <div className="container" style={{
-                    display: 'grid',
-                    gridTemplateColumns: isMobile ? '1fr' : '0.9fr 1.1fr',
-                    gap: isMobile ? '3rem' : '2rem',
+                    display: 'flex',
+                    flexDirection: isMobile ? 'column' : 'row',
+                    gap: isMobile ? '1.5rem' : '3rem',
                     alignItems: 'center',
+                    justifyContent: 'center',
                     maxWidth: '1400px',
                     margin: '0 auto',
-                    padding: isMobile ? '0 1.5rem' : '0 4rem'
+                    padding: isMobile ? '0 1.5rem' : '0 4rem',
+                    width: '100%'
                 }}>
 
-                    {/* LEFT: Branding & Info */}
-                    <div style={{ zIndex: 2, order: isMobile ? 1 : 0 }}>
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.2 }}
-                            style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}
+                    {/* RIGHT: 3D Image Showcase (Top on Mobile) */}
+                    <div
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            order: isMobile ? 0 : 1, // Image First on Mobile
+                            marginBottom: isMobile ? '1rem' : 0,
+                            width: '100%',
+                            flex: isMobile ? 'auto' : '1.1',
+                        }}
+                    >
+                        <div // Removed motion wrapper
+                            style={{
+                                borderRadius: '16px', // Smaller radius on mobile
+                                boxShadow: '0 30px 60px -15px rgba(0,0,0,0.15)',
+                                border: '2px solid #fff',
+                                overflow: 'hidden',
+                                width: '100%'
+                            }}
                         >
-                            <motion.img
+                            <img
+                                src={homeImg}
+                                alt="Dashboard Preview"
+                                style={{ display: 'block', width: '100%', height: 'auto' }}
+                            />
+                        </div>
+                    </div>
+
+                    {/* LEFT: Branding & Info (Bottom on Mobile) */}
+                    <div style={{
+                        zIndex: 2,
+                        order: isMobile ? 1 : 0,
+                        flex: isMobile ? 'auto' : '0.9',
+                        textAlign: isMobile ? 'center' : 'left', // Center text on mobile
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: isMobile ? 'center' : 'flex-start', // Center items on mobile
+                        width: '100%'
+                    }}>
+                        <div // Removed motion
+                            style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem', justifyContent: isMobile ? 'center' : 'flex-start' }}
+                        >
+                            <img // Static img on mobile
                                 src={logoImg}
                                 alt="CodeGuardian Logo"
-                                style={{ width: isMobile ? '48px' : '56px', height: 'auto', borderRadius: '8px' }}
+                                style={{ width: isMobile ? '40px' : '56px', height: 'auto', borderRadius: '8px' }}
                             />
                             <div style={{
-                                padding: '0.5rem 1rem',
+                                padding: '0.4rem 0.8rem',
                                 background: '#E0F7FA',
                                 color: '#06B6D4',
                                 borderRadius: '100px',
-                                fontSize: '0.85rem',
+                                fontSize: '0.8rem',
                                 fontWeight: 700,
                                 letterSpacing: '0.05em'
                             }}>
                                 V 1.0.0
                             </div>
-                        </motion.div>
+                        </div>
 
-                        <motion.h1
-                            layoutId="title-codeguardian"
+                        <h1 // Removed layoutId
                             style={{
-                                fontSize: isMobile ? '3rem' : '4.5rem',
+                                fontSize: isMobile ? '2.5rem' : '4.5rem', // Smaller title on mobile
                                 fontWeight: 800,
                                 lineHeight: 1.1,
                                 letterSpacing: '-0.03em',
                                 color: '#0F172A',
-                                marginBottom: '1.5rem'
+                                marginBottom: '1rem',
+                                margin: 0
                             }}
                         >
                             CodeGuardian AI
-                        </motion.h1>
+                        </h1>
 
-                        <motion.p
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.3 }}
+                        <p
                             style={{
-                                fontSize: isMobile ? '1.1rem' : '1.25rem',
-                                lineHeight: 1.6,
+                                fontSize: isMobile ? '1rem' : '1.25rem', // Smaller text
+                                lineHeight: 1.5,
                                 color: '#475569',
-                                marginBottom: '2.5rem',
+                                marginBottom: '2rem',
+                                marginTop: '1rem',
                                 maxWidth: '520px'
                             }}
                         >
                             AI-powered, in-browser code reviewer.<br />
                             Fetch public repos, analyze file trees, and get concise,
                             actionable fixes powered by Google's Gemini models.
-                        </motion.p>
+                        </p>
 
                         <motion.div
                             initial={{ opacity: 0, y: 10 }}
@@ -165,40 +251,7 @@ export default function CodeGuardianDetails({ onClose }) {
                         </motion.div>
                     </div>
 
-                    {/* RIGHT: 3D Image Showcase */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 50, rotateY: 0 }}
-                        animate={{ opacity: 1, x: 0, rotateY: -12 }}
-                        transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-                        style={{
-                            perspective: '2000px',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            transformStyle: 'preserve-3d',
-                            order: isMobile ? 2 : 1,
-                            marginBottom: isMobile ? '2rem' : 0,
-                            scale: isMobile ? 1 : 1.15
-                        }}
-                    >
-                        <motion.div
-                            animate={{ y: [0, -15, 0] }}
-                            transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-                            style={{
-                                borderRadius: '24px',
-                                boxShadow: '0 50px 100px -20px rgba(0,0,0,0.15), 0 30px 60px -30px rgba(0,0,0,0.3)',
-                                border: '4px solid #fff',
-                                overflow: 'hidden',
-                                transform: 'rotateY(-12deg) rotateX(2deg)',
-                                maxWidth: '100%'
-                            }}
-                        >
-                            <img
-                                src={homeImg}
-                                alt="Dashboard Preview"
-                                style={{ display: 'block', width: '100%', height: 'auto' }}
-                            />
-                        </motion.div>
-                    </motion.div>
+
 
                 </div>
             </div>
