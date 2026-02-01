@@ -593,7 +593,6 @@ const BlastDoorTransition = () => {
                 style={{
                     width: '50%',
                     height: '100%',
-                    background: '#2f3b4c', // Slate blue base
                     borderRight: '2px solid #1a222e',
                     position: 'relative',
                     background: 'linear-gradient(90deg, #222b38 0%, #2f3b4c 100%)',
@@ -643,7 +642,6 @@ const BlastDoorTransition = () => {
                 style={{
                     width: '50%',
                     height: '100%',
-                    background: '#2f3b4c',
                     borderLeft: '2px solid #1a222e',
                     position: 'relative',
                     background: 'linear-gradient(-90deg, #222b38 0%, #2f3b4c 100%)',

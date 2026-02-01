@@ -203,7 +203,7 @@ const MobileDeck = ({ cards }) => {
                             whileTap={{ cursor: 'grabbing' }}
                         >
                             {/* Tape / Sticky Look */}
-                            <div style={{ position: 'absolute', top: -10, left: '50%', transform: 'translateX(-50%)', width: '100px', height: '24px', background: 'rgba(255,255,200,0.8)', opacity: 0.5, boxShadow: '0 2px 4px rgba(0,0,0,0.1)', transform: 'rotate(-2deg)' }} />
+                            <div style={{ position: 'absolute', top: -10, left: '50%', transform: 'translateX(-50%) rotate(-2deg)', width: '100px', height: '24px', background: 'rgba(255,255,200,0.8)', opacity: 0.5, boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }} />
 
                             <div>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: card.themeColor, fontWeight: 800, textTransform: 'uppercase', fontSize: '0.8rem', marginBottom: '1rem' }}>
