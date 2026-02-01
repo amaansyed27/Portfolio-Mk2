@@ -42,23 +42,61 @@ const NavItem = ({ icon: Icon, label, href }) => {
 export default function Navbar() {
     return (
         <nav style={{ position: 'fixed', bottom: '30px', left: '50%', transform: 'translateX(-50%)', zIndex: 100 }}>
-            <div style={{
-                background: 'rgba(255, 255, 255, 0.8)',
-                backdropFilter: 'blur(20px)',
-                border: '1px solid rgba(255, 255, 255, 0.4)',
-                boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
-                padding: '12px 24px',
-                borderRadius: '24px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '4px'
-            }}>
-                <NavItem icon={Home} label="Home" href="/" />
-                <div style={{ width: '1px', height: '24px', background: '#e5e5e5', margin: '0 8px' }} />
-                <NavItem icon={Smartphone} label="Mobile" href="/mobile" />
-                <NavItem icon={Monitor} label="Web" href="/web" />
-                <NavItem icon={Cpu} label="AI" href="/ai" />
-            </div>
+            <motion.div
+                initial={{ y: 0 }}
+                animate={{
+                    y: [0, -8, 0], // Slightly more movement
+                    boxShadow: [
+                        '0 20px 40px rgba(0,0,0,0.1)',
+                        '0 30px 60px rgba(0,0,0,0.2)',
+                        '0 20px 40px rgba(0,0,0,0.1)'
+                    ]
+                }}
+                transition={{
+                    duration: 5,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                }}
+                style={{
+                    position: 'relative',
+                    padding: '2px', // Space for border
+                    borderRadius: '26px', // Outer radius
+                    overflow: 'hidden', // Clip the spinning border
+                    display: 'flex'
+                }}
+            >
+                {/* Rotating Silver Border Background */}
+                <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                    style={{
+                        position: 'absolute',
+                        top: '-150%', left: '-50%', width: '200%', height: '400%', // Large enough to cover rotation
+                        background: 'conic-gradient(from 0deg, transparent 0%, #C0C0C0 25%, #FFFFFF 50%, #C0C0C0 75%, transparent 100%)',
+                        opacity: 0.8,
+                        zIndex: 0
+                    }}
+                />
+
+                {/* Main Content Container */}
+                <div style={{
+                    position: 'relative',
+                    zIndex: 1,
+                    background: 'rgba(255, 255, 255, 0.9)', // Higher opacity to hide backend
+                    backdropFilter: 'blur(20px)',
+                    padding: '10px 24px',
+                    borderRadius: '24px', // Inner radius
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px'
+                }}>
+                    <NavItem icon={Home} label="Home" href="/" />
+                    <div style={{ width: '1px', height: '24px', background: '#e5e5e5', margin: '0 8px' }} />
+                    <NavItem icon={Smartphone} label="Mobile" href="/mobile" />
+                    <NavItem icon={Monitor} label="Web" href="/web" />
+                    <NavItem icon={Cpu} label="AI" href="/ai" />
+                </div>
+            </motion.div>
         </nav>
     );
 }

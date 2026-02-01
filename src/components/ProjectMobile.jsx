@@ -2,6 +2,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
 import { Dumbbell } from 'lucide-react';
+import BackgroundDoodles from './BackgroundDoodles';
 
 import androidIcon from '../assets/mobile/android.png';
 import figmaIcon from '../assets/mobile/figma.png';
@@ -66,13 +67,7 @@ const useIsMobile = () => {
 // --- PHONE FRAME COMPONENT (Responsive) ---
 const PhoneFrame = ({ project, index, isMobile, onClick }) => (
     <motion.div
-        whileHover={!isMobile ? {
-            scale: 1.05,
-            y: -20,
-            zIndex: 20,
-            rotate: 0,
-            transition: { type: "spring", stiffness: 300 }
-        } : {}} // Disable hover transforms on mobile for stability
+        // HOVER MOVED TO PARENT WRAPPER
         initial={{
             rotate: isMobile ? 0 : project.rotation,
             y: (!isMobile && project.id === 'flexhero') ? 0 : (!isMobile ? 30 : 0)
@@ -462,6 +457,7 @@ export default function ProjectMobile({ onSelect }) {
 
             {/* Background Elements */}
             <FloatingIcons />
+            <BackgroundDoodles color="#333" />
 
             <div style={{
                 position: 'absolute', inset: 0,
@@ -525,6 +521,12 @@ export default function ProjectMobile({ onSelect }) {
                     <motion.div
                         key={project.id}
                         variants={cardVariant}
+                        whileHover={!isMobile ? {
+                            scale: 1.05,
+                            y: -20,
+                            zIndex: 50, // Ensure it pops to front
+                            transition: { type: "spring", stiffness: 300 }
+                        } : {}}
                         style={{
                             position: 'relative',
                             zIndex: isMobile ? 1 : project.zIndex

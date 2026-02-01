@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import AIMascot from './AIMascot';
 import { Terminal, Cpu, Shield, Layers, Eye, Fingerprint, Sparkles, Rocket } from 'lucide-react';
+import BackgroundDoodles from './BackgroundDoodles';
 
 // --- ASSET IMPORTS ---
 import aiIcon from '../assets/ai-and-agents/ai.png';
@@ -767,6 +768,7 @@ export default function ProjectAI({ onSelect }) {
             }}>
                 <BlastDoorTransition />
                 <FallingIcons />
+                <BackgroundDoodles color="#333" />
 
                 {/* Mobile Watermark */}
                 <motion.img
@@ -892,6 +894,7 @@ export default function ProjectAI({ onSelect }) {
             <BlastDoorTransition />
             <FallingIcons />
             <HolographicParticles />
+            <BackgroundDoodles color="#333" />
 
             {/* Watermark (Stationary) */}
             <motion.img

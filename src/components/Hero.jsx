@@ -1,8 +1,62 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { ArrowDown } from 'lucide-react';
 import PhysicsBackground from './PhysicsBackground';
 import AeroFlow from './AeroFlow';
 import Portrait from './Portrait';
+import BackgroundDoodles from './BackgroundDoodles';
+
+const SilverFlowButton = () => (
+    <motion.button
+        onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+        style={{
+            position: 'relative',
+            width: '64px',
+            height: '64px',
+            borderRadius: '50%',
+            background: 'transparent',
+            border: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            padding: 0
+        }}
+    >
+        {/* Rotating Silver Border */}
+        <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+            style={{
+                position: 'absolute',
+                inset: -2,
+                borderRadius: '50%',
+                background: 'conic-gradient(from 0deg, transparent 0%, #C0C0C0 15%, #FFFFFF 50%, #C0C0C0 85%, transparent 100%)',
+                mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                maskComposite: 'exclude',
+                WebkitMaskComposite: 'xor',
+                padding: '2px' // Border width
+            }}
+        />
+
+        {/* Inner Glass Circle */}
+        <div style={{
+            position: 'absolute',
+            inset: 2,
+            borderRadius: '50%',
+            background: 'rgba(255,255,255,0.1)',
+            backdropFilter: 'blur(5px)',
+            border: '1px solid rgba(255,255,255,0.3)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+        }}>
+            <ArrowDown size={24} color="#555" />
+        </div>
+    </motion.button>
+);
 
 export default function Hero() {
     const containerRef = useRef(null);
@@ -18,6 +72,7 @@ export default function Hero() {
         <section ref={containerRef} style={{ height: '100vh', position: 'relative', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
             <PhysicsBackground />
             <AeroFlow />
+            <BackgroundDoodles color="#333" />
 
             <motion.div
                 style={{ y, opacity, zIndex: 1 }}
@@ -77,9 +132,7 @@ export default function Hero() {
                         AI Engineer | LLM Pipelines & Automation Systems. <br />
                         Ex-VideoDB Intern. 3x Hackathon Winner.
                     </p>
-                    <div style={{ width: '60px', height: '60px', borderRadius: '50%', border: '1px solid var(--color-text)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        ↓
-                    </div>
+                    <SilverFlowButton />
                 </div>
             </motion.div>
 

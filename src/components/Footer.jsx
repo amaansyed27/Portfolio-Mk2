@@ -1,6 +1,9 @@
 import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import resumeFile from '../assets/amaan_resume.pdf';
+import linkedinIcon from '../assets/linkedln.png';
+import githubIcon from '../assets/github.png';
+import resumeIcon from '../assets/resume.png';
 
 const MagneticButton = ({ children }) => {
     const ref = useRef(null);
@@ -30,8 +33,8 @@ const MagneticButton = ({ children }) => {
                 padding: '1.5rem 3rem',
                 borderRadius: '50px',
                 border: 'none',
-                background: 'var(--color-text)',
-                color: 'var(--color-bg)',
+                background: '#fff',
+                color: '#000',
                 cursor: 'pointer',
                 fontFamily: 'var(--font-display)',
                 marginTop: '2rem'
@@ -51,13 +54,30 @@ export default function Footer() {
 
                 <MagneticButton>Get in Touch</MagneticButton>
 
-                <div style={{ marginTop: '100px', display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem', color: '#666', flexWrap: 'wrap', gap: '1rem' }}>
-                    <p>© 2025 Amaan Syed. Pune, India.</p>
-                    <div style={{ display: 'flex', gap: '2rem' }}>
-                        <a href="https://www.linkedin.com/in/amaansyed27/" target="_blank" rel="noreferrer">LinkedIn</a>
-                        <a href="https://github.com/amaansyed27" target="_blank" rel="noreferrer">GitHub</a>
-                        <a href={resumeFile} download="Amaan_Syed_Resume.pdf">Resume</a>
-                    </div>
+                {/* Social Icons - Centered */}
+                <div style={{ display: 'flex', gap: '2rem', justifyContent: 'center', marginTop: '3rem', alignItems: 'center' }}>
+                    <a href="https://www.linkedin.com/in/amaansyed27/" target="_blank" rel="noreferrer" style={{ display: 'block', transition: 'transform 0.2s' }}>
+                        <img src={linkedinIcon} alt="LinkedIn" style={{ width: '32px', height: '32px', display: 'block' }} />
+                    </a>
+                    <a href="https://github.com/amaansyed27" target="_blank" rel="noreferrer" style={{ display: 'block', transition: 'transform 0.2s' }}>
+                        <img src={githubIcon} alt="GitHub" style={{ width: '32px', height: '32px', display: 'block', filter: 'invert(1)' }} />
+                    </a>
+                    <a href={resumeFile} download="Amaan_Syed_Resume.pdf" style={{ display: 'block', transition: 'transform 0.2s' }}>
+                        <img src={resumeIcon} alt="Resume" style={{ width: '32px', height: '32px', display: 'block', filter: 'invert(1)' }} />
+                    </a>
+                </div>
+
+                <div style={{ marginTop: '80px', borderTop: '1px solid #333', paddingTop: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.9rem', color: '#666' }}>
+                    <p style={{
+                        margin: 0,
+                        fontFamily: '"Great Vibes", cursive',
+                        fontSize: '2rem',
+                        color: '#fff',
+                        textShadow: '0 0 10px rgba(255,255,255,0.8)',
+                        letterSpacing: '1px'
+                    }}>
+                        © 2025 | Amaan Syed.
+                    </p>
                 </div>
             </div>
         </footer>

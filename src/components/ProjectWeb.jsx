@@ -3,6 +3,7 @@ import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import geminiHomeImg from '../assets/web/gemini_gpt/home.png';
 import dataweaveHomeImg from '../assets/web/dataweave/home.png';
 import codeGuardianHomeImg from '../assets/web/code-guardian-ai/home.png';
+import BackgroundDoodles from './BackgroundDoodles';
 
 // --- Assets / Placeholders ---
 const PROJECTS = [
@@ -35,15 +36,15 @@ const PROJECTS = [
     },
     {
         id: 'osfolio',
-        title: 'OSFolio',
-        url: 'osfolio.vercel.app',
+        title: 'Coming Soon',
+        url: '???',
         color: '#F8FAFC',
         textColor: '#333'
     },
     {
         id: 'health',
-        title: 'Vitality Health',
-        url: 'vitality.io',
+        title: 'Coming Soon',
+        url: '???',
         color: '#F0FDF4',
         textColor: '#16A34A'
     }
@@ -247,6 +248,7 @@ export default function ProjectWeb({ onSelect }) {
                 overflow: 'visible'
             }}
         >
+            <BackgroundDoodles color="#333" />
             <div style={{
                 marginBottom: isMobile ? '3rem' : '5rem',
                 textAlign: 'center',
