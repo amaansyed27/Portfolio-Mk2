@@ -28,7 +28,7 @@ const MarqueeItem = ({ item }) => {
     if (item.type === 'text') {
         return (
             <span style={{
-                fontSize: '8rem', // Massive text
+                fontSize: 'clamp(2.5rem, 15vw, 8rem)', // Adjusted for mobile safety
                 fontWeight: 800, // Reduced for Orbitron readability
                 color: item.color || '#e0e0e0',
                 textTransform: 'uppercase',

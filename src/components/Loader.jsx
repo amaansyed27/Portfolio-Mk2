@@ -82,16 +82,17 @@ export default function Loader({ onComplete }) {
             <div style={{
                 display: 'flex',
                 justifyContent: 'center',
-                gap: '24px',
+                alignItems: 'center',
+                gap: 'clamp(12px, 3vw, 24px)', // Responsive gap
                 marginBottom: '4vh',
                 opacity: lightsOut ? 0 : 1,
                 transition: 'opacity 0.1s',
-                transform: 'translateX(30px)' // Shift Right to match italic slant
+                transform: 'skewX(-10deg)' // Italic look without the shift
             }}>
                 {[1, 2, 3, 4, 5].map((i) => (
                     <div key={i} style={{
-                        width: '60px',
-                        height: '60px',
+                        width: 'clamp(40px, 12vw, 60px)', // Responsive size
+                        height: 'clamp(40px, 12vw, 60px)',
                         borderRadius: '50%',
                         backgroundColor: i <= lights ? '#ff0000' : '#111',
                         backgroundImage: i <= lights
@@ -100,9 +101,10 @@ export default function Loader({ onComplete }) {
                         backgroundSize: '4px 4px',
                         backgroundPosition: '0 0, 2px 2px',
                         boxShadow: i <= lights
-                            ? '0 0 50px rgba(255, 0, 0, 0.9), inset 0 0 20px rgba(255, 100, 100, 0.5)'
+                            ? '0 0 30px rgba(255, 0, 0, 0.8), inset 0 0 10px rgba(255, 100, 100, 0.5)'
                             : 'inset 0 0 10px #000',
-                        border: '4px solid #000'
+                        border: '3px solid #000',
+                        flexShrink: 0
                     }} />
                 ))}
             </div>

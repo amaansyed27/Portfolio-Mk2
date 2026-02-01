@@ -1,6 +1,23 @@
-import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { Terminal, Database, Smartphone, Layers, Cpu, Globe, Zap, Code, Layout, Box, Command, Wifi } from 'lucide-react';
+
+// Import Icons
+import androidIcon from '../assets/mobile/android.png';
+import apkIcon from '../assets/mobile/apk.png';
+import figmaIcon from '../assets/mobile/figma.png';
+import flutterIcon from '../assets/mobile/flutter.png';
+import javaIcon from '../assets/mobile/java.png';
+import kotlinIcon from '../assets/mobile/kotlin.png';
+
+import aiIcon from '../assets/ai-and-agents/ai.png';
+import jsIcon from '../assets/ai-and-agents/js-logo.png';
+import multiAgentIcon from '../assets/ai-and-agents/multi-agent-system.png';
+import pythonIcon from '../assets/ai-and-agents/python.png';
+import automationIcon from '../assets/ai-and-agents/automation.png';
+
+import reactIcon from '../assets/web-dev-logos/react.png';
+import nextIcon from '../assets/web-dev-logos/nextjs.png';
 
 const KeyCapability = ({ icon, title, desc, color }) => (
     <div style={{
@@ -121,6 +138,129 @@ const FocusCard = ({ i, title, subtitle, description, themeColor, icon: Icon, ca
     );
 };
 
+const MobileDeck = ({ cards }) => {
+    // State to track active cards. We remove them from the top.
+    const [activeCards, setActiveCards] = useState(cards);
+
+    const removeCard = (index) => {
+        setActiveCards((prev) => prev.filter((_, i) => i !== index));
+    };
+
+    // If all cards are gone, maybe show a "Reset" or just empty state?
+    // Let's auto-reset for the loop effect after a delay
+    if (activeCards.length === 0) {
+        setTimeout(() => setActiveCards(cards), 1000);
+    }
+
+    return (
+        <div style={{
+            height: '600px',
+            position: 'relative',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            perspective: '1000px',
+            overflow: 'hidden' // Keep tears contained
+        }}>
+            <AnimatePresence>
+                {activeCards.map((card, index) => {
+                    // We only want the top card to be draggable
+                    const isTop = index === activeCards.length - 1;
+                    return (
+                        <motion.div
+                            key={card.title} // Use title as key for stable identity
+                            style={{
+                                position: 'absolute',
+                                width: '300px',
+                                height: '420px',
+                                background: '#fff',
+                                borderRadius: '20px',
+                                border: '1px solid rgba(0,0,0,0.1)',
+                                boxShadow: '0 20px 40px -10px rgba(0,0,0,0.2)',
+                                padding: '2rem',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'space-between',
+                                zIndex: index,
+                                cursor: isTop ? 'grab' : 'default',
+                                transformOrigin: 'top center'
+                            }}
+                            initial={{ scale: 0.9 + index * 0.05, y: -index * 15, rotate: index % 2 === 0 ? 2 : -2 }}
+                            animate={{ scale: 0.9 + index * 0.05, y: -index * 15, rotate: index % 2 === 0 ? 2 : -2, opacity: 1 }}
+                            exit={{
+                                y: 800,
+                                rotate: Math.random() * 40 - 20,
+                                opacity: 0,
+                                transition: { duration: 0.4, ease: "easeIn" }
+                            }}
+                            drag={isTop ? "y" : false} // Only top card drags
+                            dragConstraints={{ top: 0, bottom: 0 }} // Don't let it stay dragged
+                            onDragEnd={(_, info) => {
+                                if (info.offset.y > 100) { // Dragged down enough
+                                    removeCard(index);
+                                }
+                            }}
+                            whileTap={{ cursor: 'grabbing' }}
+                        >
+                            {/* Tape / Sticky Look */}
+                            <div style={{ position: 'absolute', top: -10, left: '50%', transform: 'translateX(-50%)', width: '100px', height: '24px', background: 'rgba(255,255,200,0.8)', opacity: 0.5, boxShadow: '0 2px 4px rgba(0,0,0,0.1)', transform: 'rotate(-2deg)' }} />
+
+                            <div>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: card.themeColor, fontWeight: 800, textTransform: 'uppercase', fontSize: '0.8rem', marginBottom: '1rem' }}>
+                                    <card.icon size={16} />
+                                    <span>Focus 0{cards.indexOf(card) + 1}</span>
+                                </div>
+                                <h3 style={{ fontSize: '1.8rem', fontFamily: '"Orbitron", sans-serif', lineHeight: 1, marginBottom: '0.5rem', color: '#111' }}>{card.title}</h3>
+                                <p style={{ fontSize: '0.9rem', color: '#666', lineHeight: 1.4 }}>{card.subtitle}</p>
+                            </div>
+
+                            {/* Mini Tech Stack - ICONS NOW */}
+                            <div style={{
+                                display: 'flex',
+                                flexWrap: 'wrap',
+                                gap: '12px',
+                                marginTop: '1rem',
+                                padding: '10px 0',
+                                borderTop: '1px dashed #eee'
+                            }}>
+                                {card.logos && card.logos.map((logo, i) => (
+                                    <div key={i} style={{
+                                        width: '40px',
+                                        height: '40px',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        background: '#fff',
+                                        borderRadius: '8px',
+                                        boxShadow: '0 2px 6px rgba(0,0,0,0.05)',
+                                        border: '1px solid #f0f0f0'
+                                    }}>
+                                        <img src={logo} alt="tech" style={{ width: '24px', height: '24px', objectFit: 'contain' }} />
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div style={{ fontSize: '0.8rem', color: '#999', textAlign: 'center', fontStyle: 'italic', marginTop: 'auto' }}>
+                                {isTop ? "Tear me off ↓" : "..."}
+                            </div>
+                        </motion.div>
+                    );
+                })}
+            </AnimatePresence>
+        </div>
+    );
+};
+
+const DesktopStack = ({ cards }) => {
+    return (
+        <div>
+            {cards.map((card, i) => (
+                <FocusCard key={i} {...card} i={i} />
+            ))}
+        </div>
+    );
+};
+
 export default function CardStack() {
     const cards = [
         {
@@ -130,6 +270,7 @@ export default function CardStack() {
             description: "Moving beyond simple chatbots to autonomous agents. I architect systems that can use tools, maintain memory, and execute complex multi-step workflows.",
             themeColor: "#FF4D00", // International Orange / Scorpion Theme
             techStack: ["LangChain", "OpenAI API", "Vector DBs", "Python"],
+            logos: [pythonIcon, aiIcon, multiAgentIcon, automationIcon],
             capabilities: [
                 { icon: <Command size={18} />, title: "Autonomous Execution", desc: "Agents that plan their own steps to solve ambiguity." },
                 { icon: <Database size={18} />, title: "RAG Pipelines", desc: "Grounding LLMs in private enterprise data." },
@@ -162,6 +303,7 @@ export default function CardStack() {
             description: "Bridging the gap between frontend beauty and backend reliability. I build end-to-end applications with a focus on type-safety, performance, and clean architecture.",
             themeColor: "#0055FF", // Electric Blue
             techStack: ["React", "Next.js", "Node.js", "PostgreSQL", "Drizzle", "Docker"],
+            logos: [reactIcon, nextIcon, jsIcon],
             capabilities: [
                 { icon: <Layout size={18} />, title: "Pixel-Perfect UI", desc: "Responsive, accessible, and fluid interfaces." },
                 { icon: <Database size={18} />, title: "Distributed Backends", desc: "Scalable APIs with robust data modeling." },
@@ -190,6 +332,7 @@ export default function CardStack() {
             description: "Crafting fluid, native-feeling mobile experiences. Whether it's complex state management or smooth 60fps animations, I ensure the app feels like an extension of the phone.",
             themeColor: "#00C853", // Vibrant Green / Android
             techStack: ["Flutter", "Dart", "Kotlin", "Firebase", "Riverpod", "Android"],
+            logos: [flutterIcon, kotlinIcon, androidIcon, javaIcon, figmaIcon],
             capabilities: [
                 { icon: <Wifi size={18} />, title: "Offline-First", desc: "Apps that work seamlessly without internet." },
                 { icon: <Zap size={18} />, title: "High Performance", desc: "Optimized rendering for smooth 60/120fps." },
@@ -217,15 +360,40 @@ export default function CardStack() {
 
     return (
         <section className="container" style={{ marginBottom: '100px' }}>
-            <div style={{ padding: '100px 0', textAlign: 'center' }}>
-                <h2 style={{ fontSize: '4rem', color: '#111', fontWeight: 700, fontFamily: '"Orbitron", sans-serif', textTransform: 'uppercase' }}>Technical Focus</h2>
-                <p style={{ color: '#666', marginTop: '1rem', fontSize: '1.2rem', maxWidth: '600px', margin: '1rem auto 0' }}>
+            <div style={{ padding: '80px 0', textAlign: 'center' }}>
+                <h2 style={{
+                    fontSize: 'clamp(2rem, 5vw, 4rem)', // Dynamic Sizing
+                    color: '#111',
+                    fontWeight: 700,
+                    fontFamily: '"Orbitron", sans-serif',
+                    textTransform: 'uppercase',
+                    lineHeight: 1.1
+                }}>
+                    Technical Focus
+                </h2>
+                <p style={{ color: '#666', marginTop: '1rem', fontSize: 'clamp(1rem, 2vw, 1.2rem)', maxWidth: '600px', margin: '1rem auto 0' }}>
                     My core areas of expertise, built on years of hands-on build experience.
                 </p>
             </div>
-            {cards.map((card, i) => (
-                <FocusCard key={i} {...card} i={i} />
-            ))}
+
+            {/* Desktop View: Sticky Scroll */}
+            <div className="desktop-only">
+                <DesktopStack cards={cards} />
+            </div>
+
+            {/* Mobile View: Tearing Sticky Notes */}
+            <div className="mobile-only">
+                <MobileDeck cards={cards} />
+            </div>
+
+            <style>{`
+                .desktop-only { display: block; }
+                .mobile-only { display: none; }
+                @media (max-width: 900px) {
+                    .desktop-only { display: none; }
+                    .mobile-only { display: block; }
+                }
+            `}</style>
         </section>
     );
 }

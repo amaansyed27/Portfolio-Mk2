@@ -131,7 +131,7 @@ const MobileScatteredGallery = ({ onClose }) => {
                         transition={{ duration: 0.5 }}
                         style={{
                             width: '100%',
-                            maxWidth: '350px',
+                            maxWidth: '90vw',
                             background: '#fff',
                             padding: '10px',
                             borderRadius: '16px',
@@ -193,7 +193,7 @@ export default function Achievements() {
             }}>
                 <Award size={48} color="#FFD700" strokeWidth={2.5} />
                 <h2 style={{
-                    fontSize: '4rem',
+                    fontSize: 'clamp(2.5rem, 8vw, 4rem)',
                     fontWeight: 900,
                     margin: 0,
                     letterSpacing: '-2px',

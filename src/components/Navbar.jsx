@@ -59,6 +59,7 @@ export default function Navbar() {
                 }}
                 style={{
                     position: 'relative',
+                    maxWidth: '92vw', // Responsive Constraint
                     padding: '2px', // Space for border
                     borderRadius: '26px', // Outer radius
                     overflow: 'hidden', // Clip the spinning border

@@ -50,7 +50,7 @@ export default function Footer() {
         <footer style={{ background: '#111', color: '#FAFAFA', padding: '100px 0', borderTopLeftRadius: '40px', borderTopRightRadius: '40px', marginTop: '100px' }}>
             <div className="container" style={{ textAlign: 'center' }}>
                 <h2 style={{ fontSize: '10vw', lineHeight: 0.9, marginBottom: '2rem' }}>Let's Talk.</h2>
-                <a href="mailto:amaansyed27@gmail.com" style={{ fontSize: '2rem', color: '#888', display: 'block', textDecoration: 'underline' }}>amaansyed27@gmail.com</a>
+                <a href="mailto:amaansyed27@gmail.com" style={{ fontSize: 'clamp(1.2rem, 5vw, 2rem)', color: '#888', display: 'block', textDecoration: 'underline', wordBreak: 'break-all' }}>amaansyed27@gmail.com</a>
 
                 <MagneticButton>Get in Touch</MagneticButton>
 

@@ -1,10 +1,11 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
 import PhysicsBackground from './PhysicsBackground';
 import AeroFlow from './AeroFlow';
 import Portrait from './Portrait';
 import BackgroundDoodles from './BackgroundDoodles';
+import MobileHero from './MobileHero';
 
 const SilverFlowButton = () => (
     <motion.button
@@ -60,6 +61,15 @@ const SilverFlowButton = () => (
 
 export default function Hero() {
     const containerRef = useRef(null);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.matchMedia("(max-width: 768px)").matches);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
     const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ["start start", "end start"]
@@ -67,6 +77,10 @@ export default function Hero() {
 
     const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
     const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
+    if (isMobile) {
+        return <MobileHero />;
+    }
 
     return (
         <section ref={containerRef} style={{ height: '100vh', position: 'relative', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>

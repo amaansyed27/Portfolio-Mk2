@@ -419,14 +419,14 @@ const AIShowcase = () => {
 // --- EXPORTED COMPONENT ---
 export default function ProjectGateway() {
     return (
-        <section className="container section" style={{ padding: '4rem 0' }}>
+        <section className="container section" style={{ padding: 'clamp(2rem, 5vw, 4rem) 0' }}>
             <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
                 style={{ textAlign: 'center', marginBottom: '4rem' }}
             >
-                <h2 style={{ fontSize: '3.5rem', fontWeight: 800, marginBottom: '1rem', letterSpacing: '-1px', fontFamily: '"Orbitron", sans-serif' }}>
+                <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 800, marginBottom: '1rem', letterSpacing: '-1px', fontFamily: '"Orbitron", sans-serif' }}>
                     EXPLORE WORK
                 </h2>
                 <p style={{ fontSize: '1.1rem', color: '#666', maxWidth: '600px', margin: '0 auto' }}>
@@ -436,7 +436,7 @@ export default function ProjectGateway() {
 
             <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
                 gap: '2.5rem',
                 padding: '0 1rem'
             }}>
