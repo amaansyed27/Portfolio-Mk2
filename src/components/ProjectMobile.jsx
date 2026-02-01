@@ -212,6 +212,31 @@ const FloatingIcons = () => {
     );
 };
 
+// --- TECH STACK COMPONENT ---
+const TechStack = () => (
+    <div style={{
+        display: 'flex',
+        gap: '3rem',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        opacity: 0.9,
+        background: 'rgba(255,255,255,0.8)',
+        padding: '1rem 3rem',
+        borderRadius: '50px',
+        border: '1px solid #fff',
+        boxShadow: '0 10px 40px rgba(0,0,0,0.05)',
+        backdropFilter: 'blur(10px)',
+        marginTop: '2rem'
+    }}>
+        <img src={androidIcon} alt="Android" style={{ height: '40px', filter: 'grayscale(0%)', opacity: 1 }} />
+        <img src={flutterIcon} alt="Flutter" style={{ height: '35px', filter: 'grayscale(0%)', opacity: 1 }} />
+        <img src={kotlinIcon} alt="Kotlin" style={{ height: '35px', filter: 'grayscale(0%)', opacity: 1 }} />
+        <img src={javaIcon} alt="Java" style={{ height: '45px', filter: 'grayscale(0%)', opacity: 1 }} />
+        <img src={figmaIcon} alt="Figma" style={{ height: '40px', filter: 'grayscale(0%)', opacity: 1 }} />
+    </div>
+);
+
 export default function ProjectMobile() {
     const isMobile = useIsMobile();
 
@@ -225,17 +250,18 @@ export default function ProjectMobile() {
             marginRight: '-50vw',
             minHeight: '100vh',
             display: 'flex',
-            flexDirection: 'column',
+            flexDirection: isMobile ? 'column' : 'row',
             alignItems: 'center',
             justifyContent: 'center',
             paddingTop: '5rem',
             paddingBottom: '5rem',
-            position: 'relative',
             background: 'radial-gradient(circle at center, #FAFAFA 0%, #F5F5F5 100%)',
             overflow: 'hidden'
         }}>
-            {/* ... bg ... */}
+
+            {/* Background Elements */}
             <FloatingIcons />
+
             <div style={{
                 position: 'absolute', inset: 0,
                 backgroundImage: 'radial-gradient(#e0e0e0 1px, transparent 1px)',
@@ -244,57 +270,54 @@ export default function ProjectMobile() {
                 zIndex: 0
             }} />
 
-            <div style={{ textAlign: 'center', marginBottom: isMobile ? '2rem' : '3rem', position: 'relative', zIndex: 2, padding: '0 1rem' }}>
-                <h2 style={{ fontSize: isMobile ? '2.5rem' : '4rem', fontWeight: 800, color: '#111', marginBottom: '0.5rem', letterSpacing: '-1px' }}>
-                    Built for Mobile.
+            {/* LEFT COLUMN (Desktop) / TOP (Mobile) */}
+            <div style={{
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: isMobile ? 'center' : 'flex-start',
+                justifyContent: 'center',
+                zIndex: 2,
+                padding: isMobile ? '0 1rem' : '0 0 0 5vw', // Left padding on desktop
+                textAlign: isMobile ? 'center' : 'left',
+                marginBottom: isMobile ? '3rem' : '0'
+            }}>
+                <h2 style={{ fontSize: isMobile ? '2.5rem' : '5rem', fontWeight: 800, color: '#111', marginBottom: '0.5rem', letterSpacing: '-2px', lineHeight: 1 }}>
+                    Built for <br /> Mobile.
                 </h2>
-                <p style={{ fontSize: isMobile ? '1rem' : '1.25rem', color: '#666', maxWidth: '600px', margin: '0 auto' }}>
+                <p style={{ fontSize: isMobile ? '1rem' : '1.5rem', color: '#666', maxWidth: '500px', margin: isMobile ? '0 auto' : '1rem 0 2rem 0' }}>
                     Crafting fluid experiences with Flutter & Kotlin.
+                    <span style={{ display: 'block', marginTop: '0.5rem', fontSize: '1rem', opacity: 0.7 }}>
+                        Responsive, performant, and beautiful.
+                    </span>
                 </p>
+
+                {/* Tech Stack - Desktop Only (Below Text) */}
+                {!isMobile && <TechStack />}
             </div>
 
-            {/* Phones Container */}
+            {/* RIGHT COLUMN (Desktop) / BOTTOM (Mobile) */}
             <div style={{
+                flex: 1.2, // Give more space to phones
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
                 perspective: '1000px',
-                marginBottom: '4rem',
                 flexWrap: 'wrap',
-                flexDirection: isMobile ? 'column' : 'row', // Vertical stack on mobile
-                gap: isMobile ? '0' : '0', // Margin handled in PhoneFrame
+                flexDirection: isMobile ? 'column' : 'row',
+                gap: isMobile ? '0' : '0',
                 position: 'relative',
                 zIndex: 10,
-                width: '100%'
+                width: '100%',
+                paddingRight: isMobile ? 0 : '2rem'
             }}>
                 {PROJECTS.map((project, i) => (
                     <PhoneFrame key={project.id} project={project} index={i} isMobile={isMobile} />
                 ))}
             </div>
 
-            {/* Tech Stack Row */}
-            <div style={{
-                display: 'flex',
-                gap: '3rem',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexWrap: 'wrap',
-                opacity: 0.9,
-                position: 'relative',
-                zIndex: 10,
-                background: 'rgba(255,255,255,0.8)',
-                padding: '1rem 3rem',
-                borderRadius: '50px',
-                border: '1px solid #fff',
-                boxShadow: '0 10px 40px rgba(0,0,0,0.05)',
-                backdropFilter: 'blur(10px)'
-            }}>
-                <img src={androidIcon} alt="Android" style={{ height: '40px', filter: 'grayscale(0%)', opacity: 1 }} />
-                <img src={flutterIcon} alt="Flutter" style={{ height: '35px', filter: 'grayscale(0%)', opacity: 1 }} />
-                <img src={kotlinIcon} alt="Kotlin" style={{ height: '35px', filter: 'grayscale(0%)', opacity: 1 }} />
-                <img src={javaIcon} alt="Java" style={{ height: '45px', filter: 'grayscale(0%)', opacity: 1 }} />
-                <img src={figmaIcon} alt="Figma" style={{ height: '40px', filter: 'grayscale(0%)', opacity: 1 }} />
-            </div>
+            {/* Tech Stack - Mobile Only (Below Phones) */}
+            {isMobile && <div style={{ marginTop: '3rem', zIndex: 10 }}><TechStack /></div>}
 
         </section>
     );
