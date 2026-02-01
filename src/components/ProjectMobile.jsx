@@ -1,6 +1,7 @@
 
 import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { Dumbbell } from 'lucide-react';
 
 import androidIcon from '../assets/mobile/android.png';
 import figmaIcon from '../assets/mobile/figma.png';
@@ -60,7 +61,7 @@ const useIsMobile = () => {
 };
 
 // --- PHONE FRAME COMPONENT (Responsive) ---
-const PhoneFrame = ({ project, index, isMobile }) => (
+const PhoneFrame = ({ project, index, isMobile, onClick }) => (
     <motion.div
         whileHover={!isMobile ? {
             scale: 1.05,
@@ -72,6 +73,10 @@ const PhoneFrame = ({ project, index, isMobile }) => (
         initial={{
             rotate: isMobile ? 0 : project.rotation,
             y: (!isMobile && project.id === 'flexhero') ? 0 : (!isMobile ? 30 : 0)
+        }}
+        onClick={() => {
+            console.log("PhoneFrame clicked:", project.id);
+            onClick && onClick(project.id);
         }}
         style={{
             width: '280px',
@@ -99,46 +104,84 @@ const PhoneFrame = ({ project, index, isMobile }) => (
             padding: '2rem 1.5rem',
             position: 'relative'
         }}>
-
-            {/* Header */}
-            <div>
-                <h4 style={{ fontSize: '0.9rem', fontWeight: 600, color: project.textColor, opacity: 0.7, textTransform: 'uppercase', letterSpacing: '1px' }}>
-                    {project.type}
-                </h4>
-                <h3 style={{ fontSize: '2.5rem', fontWeight: 800, color: project.textColor, lineHeight: 1.1, marginTop: '0.5rem' }}>
-                    {project.title}
-                </h3>
-            </div>
-
-            {/* Middle Visual/Desc */}
-            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <p style={{ textAlign: 'center', color: project.textColor, fontWeight: 500, lineHeight: 1.5, fontSize: '1rem', opacity: 0.9 }}>
-                    {project.desc}
-                </p>
-            </div>
-
-            {/* Footer / Stack */}
-            <div style={{ display: 'flex', gap: '10px', marginTop: 'auto' }}>
-                {project.stack.map((icon, i) => (
-                    <div key={i} style={{
-                        width: '36px', height: '36px', borderRadius: '10px',
-                        background: 'rgba(255,255,255,0.6)', display: 'flex',
-                        alignItems: 'center', justifyContent: 'center',
-                        backdropFilter: 'blur(5px)'
-                    }}>
-                        <img src={icon} alt="" style={{ width: '20px', height: '20px', objectFit: 'contain' }} />
-                    </div>
-                ))}
-
-                {/* Arrow Button */}
+            {/* Custom Splash Look for FlexHero */}
+            {project.id === 'flexhero' ? (
                 <div style={{
-                    width: '36px', height: '36px', borderRadius: '10px',
-                    background: project.textColor, marginLeft: 'auto',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
+                    height: '100%', display: 'flex', flexDirection: 'column',
+                    alignItems: 'center', justifyContent: 'center', gap: '2rem'
                 }}>
-                    <span style={{ color: '#fff', fontSize: '1.2rem', lineHeight: 0 }}>→</span>
+                    {/* The Logo Container Requested by User */}
+                    <div style={{
+                        width: '120px', height: '120px', background: '#fff',
+                        borderRadius: '20px', display: 'flex', alignItems: 'center',
+                        justifyContent: 'center', boxShadow: '0 10px 30px rgba(13, 71, 161, 0.15)'
+                    }}>
+                        <Dumbbell size={60} color="#1565C0" strokeWidth={2.5} />
+                    </div>
+
+                    <div style={{ textAlign: 'center' }}>
+                        <h3 style={{
+                            fontSize: '2.5rem', fontWeight: 800, color: project.textColor,
+                            lineHeight: 1, marginBottom: '0.5rem', letterSpacing: '-1px'
+                        }}>
+                            FlexHero
+                        </h3>
+                        <p style={{
+                            fontSize: '1rem', color: project.textColor,
+                            opacity: 0.8, letterSpacing: '2px', textTransform: 'uppercase', fontWeight: 600
+                        }}>
+                            Fitness Companion
+                        </p>
+                    </div>
+
+                    {/* "Tap to Open" indication */}
+                    <motion.div
+                        animate={{ opacity: [0.5, 1, 0.5] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                        style={{ marginTop: 'auto', paddingBottom: '2rem', display: 'flex', alignItems: 'center', gap: '8px' }}
+                    >
+                        <span style={{ fontSize: '0.9rem', color: project.textColor, fontWeight: 500 }}>Tap to Launch</span>
+                    </motion.div>
                 </div>
-            </div>
+            ) : (
+                <>
+                    {/* Standard Layout for Other Apps */}
+                    <div>
+                        <h4 style={{ fontSize: '0.9rem', fontWeight: 600, color: project.textColor, opacity: 0.7, textTransform: 'uppercase', letterSpacing: '1px' }}>
+                            {project.type}
+                        </h4>
+                        <h3 style={{ fontSize: '2.5rem', fontWeight: 800, color: project.textColor, lineHeight: 1.1, marginTop: '0.5rem' }}>
+                            {project.title}
+                        </h3>
+                    </div>
+
+                    <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <p style={{ textAlign: 'center', color: project.textColor, fontWeight: 500, lineHeight: 1.5, fontSize: '1rem', opacity: 0.9 }}>
+                            {project.desc}
+                        </p>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '10px', marginTop: 'auto' }}>
+                        {project.stack.map((icon, i) => (
+                            <div key={i} style={{
+                                width: '36px', height: '36px', borderRadius: '10px',
+                                background: 'rgba(255,255,255,0.6)', display: 'flex',
+                                alignItems: 'center', justifyContent: 'center',
+                                backdropFilter: 'blur(5px)'
+                            }}>
+                                <img src={icon} alt="" style={{ width: '20px', height: '20px', objectFit: 'contain' }} />
+                            </div>
+                        ))}
+                        <div style={{
+                            width: '36px', height: '36px', borderRadius: '10px',
+                            background: project.textColor, marginLeft: 'auto',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center'
+                        }}>
+                            <span style={{ color: '#fff', fontSize: '1.2rem', lineHeight: 0 }}>→</span>
+                        </div>
+                    </div>
+                </>
+            )}
 
         </div>
     </motion.div>
@@ -237,8 +280,9 @@ const TechStack = () => (
     </div>
 );
 
-export default function ProjectMobile() {
+export default function ProjectMobile({ onSelect }) {
     const isMobile = useIsMobile();
+    console.log("ProjectMobile render, onSelect present:", !!onSelect);
 
     return (
         <section className="section" style={{
@@ -312,7 +356,7 @@ export default function ProjectMobile() {
                 paddingRight: isMobile ? 0 : '2rem'
             }}>
                 {PROJECTS.map((project, i) => (
-                    <PhoneFrame key={project.id} project={project} index={i} isMobile={isMobile} />
+                    <PhoneFrame key={project.id} project={project} index={i} isMobile={isMobile} onClick={onSelect} />
                 ))}
             </div>
 
