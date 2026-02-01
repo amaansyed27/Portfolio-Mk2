@@ -10,7 +10,7 @@ import flutterIcon from '../assets/mobile/flutter.png';
 import kotlinIcon from '../assets/mobile/kotlin.png';
 import javaIcon from '../assets/mobile/java.png';
 import ecobridgeLogo from '../assets/mobile/Ecobridge/ecobridgelogo.png';
-import somaLogo from '../assets/mobile/Soma/soma-logo.png';
+import somaLogo from '../assets/mobile/soma/soma-logo.png';
 
 // apk icon might not be needed for the stack, but available if needed.
 

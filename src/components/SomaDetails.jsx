@@ -3,11 +3,11 @@ import { motion } from 'framer-motion';
 import { X, Github, Activity, Smartphone, Heart, Zap, Layers, ChevronLeft, ChevronRight, Code, Brain, FileText, BarChart } from 'lucide-react';
 
 // --- IMAGES ---
-import logoImg from '../assets/mobile/Soma/soma-logo.png';
-import toolsImg from '../assets/mobile/Soma/tools-&-health-assistant.png';
-import handwritingImg from '../assets/mobile/Soma/handwriting analyzer.png';
-import mentalHealthImg from '../assets/mobile/Soma/mentalh-health.png';
-import resultImg from '../assets/mobile/Soma/result.png';
+import logoImg from '../assets/mobile/soma/soma-logo.png';
+import toolsImg from '../assets/mobile/soma/tools-&-health-assistant.png';
+import handwritingImg from '../assets/mobile/soma/handwriting analyzer.png';
+import mentalHealthImg from '../assets/mobile/soma/mentalh-health.png';
+import resultImg from '../assets/mobile/soma/result.png';
 
 // --- SLIDES ---
 const IMAGES = [toolsImg, handwritingImg, mentalHealthImg, resultImg];
