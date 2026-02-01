@@ -149,6 +149,16 @@ export default function FlexHeroDetails({ onClose }) {
                             >
                                 <Github size={20} /> GitHub
                             </button>
+
+                            {/* Development Status Badge */}
+                            <div style={{
+                                padding: '12px 24px', borderRadius: '12px',
+                                background: '#FFF3E0', color: '#E65100', border: '1px solid #FFE0B2',
+                                fontSize: '0.95rem', fontWeight: 700,
+                                display: 'flex', alignItems: 'center', gap: '8px'
+                            }}>
+                                <Zap size={18} fill="#E65100" /> Under Development
+                            </div>
                         </motion.div>
                     </div>
                 </div>

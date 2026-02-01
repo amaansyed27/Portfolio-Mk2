@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import ProjectMobile from '../components/ProjectMobile';
 import FlexHeroDetails from '../components/FlexHeroDetails';
+import EcoBridgeDetails from '../components/EcoBridgeDetails';
+import SomaDetails from '../components/SomaDetails';
 
 export default function MobilePage() {
     const [selectedProject, setSelectedProject] = useState(null);
@@ -15,7 +17,13 @@ export default function MobilePage() {
                 {selectedProject === 'flexhero' && (
                     <FlexHeroDetails onClose={() => setSelectedProject(null)} />
                 )}
+                {selectedProject === 'ecobridge' && (
+                    <EcoBridgeDetails onClose={() => setSelectedProject(null)} />
+                )}
+                {selectedProject === 'soma' && (
+                    <SomaDetails onClose={() => setSelectedProject(null)} />
+                )}
             </AnimatePresence>
-        </div>
+        </div >
     );
 }

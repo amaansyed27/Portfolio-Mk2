@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import tireImg from '../assets/race_assets/tire_asset.webp';
+import tireImg from '../assets/race_assets/tire_asset.png';
 
 export default function Mascot() {
     const { scrollYProgress } = useScroll();

@@ -1,6 +1,6 @@
 
 import { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
 import { Dumbbell } from 'lucide-react';
 
 import androidIcon from '../assets/mobile/android.png';
@@ -8,6 +8,9 @@ import figmaIcon from '../assets/mobile/figma.png';
 import flutterIcon from '../assets/mobile/flutter.png';
 import kotlinIcon from '../assets/mobile/kotlin.png';
 import javaIcon from '../assets/mobile/java.png';
+import ecobridgeLogo from '../assets/mobile/Ecobridge/ecobridgelogo.png';
+import somaLogo from '../assets/mobile/Soma/soma-logo.png';
+
 // apk icon might not be needed for the stack, but available if needed.
 
 // --- DATA ---
@@ -38,8 +41,8 @@ const PROJECTS = [
         id: 'ecobridge',
         title: 'EcoBridge',
         type: 'Ecosystem Bridge',
-        color: '#F3E5F5', // Light Purple
-        textColor: '#4A148C',
+        color: '#FFE082', // Sun Yellow/Orange
+        textColor: '#800000', // Maroon
         desc: 'High-performance bridge turning Android into a desktop extension.',
         stack: [flutterIcon, androidIcon],
         rotation: 10,
@@ -134,11 +137,137 @@ const PhoneFrame = ({ project, index, isMobile, onClick }) => (
                         </p>
                     </div>
 
+                    {/* Tech Stack Row Restored */}
+                    <div style={{ display: 'flex', gap: '8px', marginTop: 'auto', marginBottom: '1rem' }}>
+                        {project.stack.map((icon, i) => (
+                            <div key={i} style={{
+                                width: '32px', height: '32px', borderRadius: '8px',
+                                background: 'rgba(255,255,255,0.8)', display: 'flex',
+                                alignItems: 'center', justifyContent: 'center',
+                                boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+                            }}>
+                                <img src={icon} alt="" style={{ width: '18px', height: '18px', objectFit: 'contain' }} />
+                            </div>
+                        ))}
+                    </div>
+
                     {/* "Tap to Open" indication */}
                     <motion.div
                         animate={{ opacity: [0.5, 1, 0.5] }}
                         transition={{ duration: 2, repeat: Infinity }}
-                        style={{ marginTop: 'auto', paddingBottom: '2rem', display: 'flex', alignItems: 'center', gap: '8px' }}
+                        style={{ paddingBottom: '2rem', display: 'flex', alignItems: 'center', gap: '8px' }}
+                    >
+                        <span style={{ fontSize: '0.9rem', color: project.textColor, fontWeight: 500 }}>Tap to Launch</span>
+                    </motion.div>
+                </div>
+            ) : project.id === 'ecobridge' ? (
+                <div style={{
+                    height: '100%', display: 'flex', flexDirection: 'column',
+                    alignItems: 'center', justifyContent: 'center', gap: '2rem'
+                }}>
+                    {/* EcoBridge Logo Container */}
+                    <div style={{
+                        width: '120px', height: '120px', background: '#fff',
+                        borderRadius: '20px', display: 'flex', alignItems: 'center',
+                        justifyContent: 'center', boxShadow: '0 10px 30px rgba(128, 0, 0, 0.15)'
+                    }}>
+                        <img
+                            src={ecobridgeLogo}
+                            alt="EcoBridge"
+                            style={{ width: '80px', height: '80px', objectFit: 'contain' }}
+                        />
+                    </div>
+
+                    <div style={{ textAlign: 'center' }}>
+                        <h3 style={{
+                            fontSize: '2.5rem', fontWeight: 800, color: project.textColor,
+                            lineHeight: 1, marginBottom: '0.5rem', letterSpacing: '-1px'
+                        }}>
+                            EcoBridge
+                        </h3>
+                        <p style={{
+                            fontSize: '1rem', color: project.textColor,
+                            opacity: 0.8, letterSpacing: '2px', textTransform: 'uppercase', fontWeight: 600
+                        }}>
+                            Ecosystem Bridge
+                        </p>
+                    </div>
+
+                    {/* Tech Stack Row */}
+                    <div style={{ display: 'flex', gap: '8px', marginTop: 'auto', marginBottom: '1rem' }}>
+                        {project.stack.map((icon, i) => (
+                            <div key={i} style={{
+                                width: '32px', height: '32px', borderRadius: '8px',
+                                background: 'rgba(255,255,255,0.8)', display: 'flex',
+                                alignItems: 'center', justifyContent: 'center',
+                                boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+                            }}>
+                                <img src={icon} alt="" style={{ width: '18px', height: '18px', objectFit: 'contain' }} />
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* "Tap to Launch" indication */}
+                    <motion.div
+                        animate={{ opacity: [0.5, 1, 0.5] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                        style={{ paddingBottom: '2rem', display: 'flex', alignItems: 'center', gap: '8px' }}
+                    >
+                        <span style={{ fontSize: '0.9rem', color: project.textColor, fontWeight: 500 }}>Tap to Launch</span>
+                    </motion.div>
+                </div>
+            ) : project.id === 'soma' ? (
+                <div style={{
+                    height: '100%', display: 'flex', flexDirection: 'column',
+                    alignItems: 'center', justifyContent: 'center', gap: '2rem'
+                }}>
+                    {/* Soma Logo Container */}
+                    <div style={{
+                        width: '120px', height: '120px', background: '#fff',
+                        borderRadius: '20px', display: 'flex', alignItems: 'center',
+                        justifyContent: 'center', boxShadow: '0 10px 30px rgba(0, 77, 64, 0.15)'
+                    }}>
+                        <img
+                            src={somaLogo}
+                            alt="Soma"
+                            style={{ width: '80px', height: '80px', objectFit: 'contain' }}
+                        />
+                    </div>
+
+                    <div style={{ textAlign: 'center' }}>
+                        <h3 style={{
+                            fontSize: '2.5rem', fontWeight: 800, color: project.textColor,
+                            lineHeight: 1, marginBottom: '0.5rem', letterSpacing: '-1px'
+                        }}>
+                            SOMA V1
+                        </h3>
+                        <p style={{
+                            fontSize: '1rem', color: project.textColor,
+                            opacity: 0.8, letterSpacing: '2px', textTransform: 'uppercase', fontWeight: 600
+                        }}>
+                            Health Companion
+                        </p>
+                    </div>
+
+                    {/* Tech Stack Row */}
+                    <div style={{ display: 'flex', gap: '8px', marginTop: 'auto', marginBottom: '1rem' }}>
+                        {project.stack.map((icon, i) => (
+                            <div key={i} style={{
+                                width: '32px', height: '32px', borderRadius: '8px',
+                                background: 'rgba(255,255,255,0.8)', display: 'flex',
+                                alignItems: 'center', justifyContent: 'center',
+                                boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+                            }}>
+                                <img src={icon} alt="" style={{ width: '18px', height: '18px', objectFit: 'contain' }} />
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* "Tap to Launch" indication */}
+                    <motion.div
+                        animate={{ opacity: [0.5, 1, 0.5] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                        style={{ paddingBottom: '2rem', display: 'flex', alignItems: 'center', gap: '8px' }}
                     >
                         <span style={{ fontSize: '0.9rem', color: project.textColor, fontWeight: 500 }}>Tap to Launch</span>
                     </motion.div>
@@ -184,7 +313,7 @@ const PhoneFrame = ({ project, index, isMobile, onClick }) => (
             )}
 
         </div>
-    </motion.div>
+    </motion.div >
 );
 
 // ... icons ...
@@ -282,7 +411,35 @@ const TechStack = () => (
 
 export default function ProjectMobile({ onSelect }) {
     const isMobile = useIsMobile();
+    const containerRef = useRef(null);
+    const isInView = useInView(containerRef, { once: true, margin: "-10%" });
     console.log("ProjectMobile render, onSelect present:", !!onSelect);
+
+    const headerVariant = {
+        hidden: { opacity: 0, x: -50 },
+        visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" } }
+    };
+
+    const containerVariant = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.3,
+                delayChildren: 0.2
+            }
+        }
+    };
+
+    const cardVariant = {
+        hidden: { opacity: 0, y: 100, rotate: 10 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            rotate: 0,
+            transition: { type: "spring", bounce: 0.4, duration: 1 }
+        }
+    };
 
     return (
         <section className="section" style={{
@@ -315,50 +472,68 @@ export default function ProjectMobile({ onSelect }) {
             }} />
 
             {/* LEFT COLUMN (Desktop) / TOP (Mobile) */}
-            <div style={{
-                flex: 1,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: isMobile ? 'center' : 'flex-start',
-                justifyContent: 'center',
-                zIndex: 2,
-                padding: isMobile ? '0 1rem' : '0 0 0 5vw', // Left padding on desktop
-                textAlign: isMobile ? 'center' : 'left',
-                marginBottom: isMobile ? '3rem' : '0'
-            }}>
-                <h2 style={{ fontSize: isMobile ? '2.5rem' : '5rem', fontWeight: 800, color: '#111', marginBottom: '0.5rem', letterSpacing: '-2px', lineHeight: 1 }}>
-                    Built for <br /> Mobile.
-                </h2>
-                <p style={{ fontSize: isMobile ? '1rem' : '1.5rem', color: '#666', maxWidth: '500px', margin: isMobile ? '0 auto' : '1rem 0 2rem 0' }}>
-                    Crafting fluid experiences with Flutter & Kotlin.
-                    <span style={{ display: 'block', marginTop: '0.5rem', fontSize: '1rem', opacity: 0.7 }}>
-                        Responsive, performant, and beautiful.
-                    </span>
-                </p>
+            <motion.div
+                ref={containerRef}
+                display="flex" // Helper to keep flex properties if styled-components were used, but mostly for ref
+                style={{
+                    flex: 1,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: isMobile ? 'center' : 'flex-start',
+                    justifyContent: 'center',
+                    zIndex: 2,
+                    padding: isMobile ? '0 1rem' : '0 0 0 5vw', // Left padding on desktop
+                    textAlign: isMobile ? 'center' : 'left',
+                    marginBottom: isMobile ? '3rem' : '0'
+                }}>
+                <motion.div initial="hidden" animate={isInView ? "visible" : "hidden"} variants={headerVariant}>
+                    <h2 style={{ fontSize: isMobile ? '2.5rem' : '5rem', fontWeight: 800, color: '#111', marginBottom: '0.5rem', letterSpacing: '-2px', lineHeight: 1 }}>
+                        Built for <br /> Mobile.
+                    </h2>
+                    <p style={{ fontSize: isMobile ? '1rem' : '1.5rem', color: '#666', maxWidth: '500px', margin: isMobile ? '0 auto' : '1rem 0 2rem 0' }}>
+                        Crafting fluid experiences with Flutter & Kotlin.
+                        <span style={{ display: 'block', marginTop: '0.5rem', fontSize: '1rem', opacity: 0.7 }}>
+                            Responsive, performant, and beautiful.
+                        </span>
+                    </p>
 
-                {/* Tech Stack - Desktop Only (Below Text) */}
-                {!isMobile && <TechStack />}
-            </div>
+                    {/* Tech Stack - Desktop Only (Below Text) */}
+                    {!isMobile && <TechStack />}
+                </motion.div>
+            </motion.div>
 
             {/* RIGHT COLUMN (Desktop) / BOTTOM (Mobile) */}
-            <div style={{
-                flex: 1.2, // Give more space to phones
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                perspective: '1000px',
-                flexWrap: 'wrap',
-                flexDirection: isMobile ? 'column' : 'row',
-                gap: isMobile ? '0' : '0',
-                position: 'relative',
-                zIndex: 10,
-                width: '100%',
-                paddingRight: isMobile ? 0 : '2rem'
-            }}>
+            <motion.div
+                variants={containerVariant}
+                initial="hidden"
+                animate={isInView ? "visible" : "hidden"}
+                style={{
+                    flex: 1.2, // Give more space to phones
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    perspective: '1000px',
+                    flexWrap: 'wrap',
+                    flexDirection: isMobile ? 'column' : 'row',
+                    gap: isMobile ? '0' : '0',
+                    position: 'relative',
+                    zIndex: 10,
+                    width: '100%',
+                    paddingRight: isMobile ? 0 : '2rem'
+                }}>
                 {PROJECTS.map((project, i) => (
-                    <PhoneFrame key={project.id} project={project} index={i} isMobile={isMobile} onClick={onSelect} />
+                    <motion.div
+                        key={project.id}
+                        variants={cardVariant}
+                        style={{
+                            position: 'relative',
+                            zIndex: isMobile ? 1 : project.zIndex
+                        }}
+                    >
+                        <PhoneFrame project={project} index={i} isMobile={isMobile} onClick={onSelect} />
+                    </motion.div>
                 ))}
-            </div>
+            </motion.div>
 
             {/* Tech Stack - Mobile Only (Below Phones) */}
             {isMobile && <div style={{ marginTop: '3rem', zIndex: 10 }}><TechStack /></div>}
