@@ -76,7 +76,7 @@ export default function Footer() {
                         textShadow: '0 0 10px rgba(255,255,255,0.8)',
                         letterSpacing: '1px'
                     }}>
-                        © 2025 | Amaan Syed.
+                        © 2026 | Amaan Syed.
                     </p>
                 </div>
             </div>
